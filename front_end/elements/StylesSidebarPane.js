@@ -257,7 +257,7 @@ Elements.StylesSidebarPane = class extends Elements.ElementsSidebarPane {
     var node = this.node();
     if (!node || !this.cssModel())
       return Promise.resolve(/** @type {?SDK.CSSMatchedStyles} */ (null));
-
+    // debugger;
     return this.cssModel().cachedMatchedCascadeForNode(node).then(validateStyles.bind(this));
 
     /**
@@ -507,8 +507,13 @@ Elements.SectionBlock = class {
    */
   static createPseudoTypeBlock(pseudoType) {
     var separatorElement = createElement('div');
+    /* BEGIN ADDITION */
     separatorElement.className = 'sidebar-separator';
-    separatorElement.textContent = Common.UIString('Pseudo ::%s element', pseudoType);
+    if (pseudoType !== 'selection') {
+      separatorElement.className += ' ply-pseudo';
+    }
+    /* END ADDITION */
+    separatorElement.textContent = Common.UIString('::%s element', pseudoType);
     return new Elements.SectionBlock(separatorElement);
   }
 
@@ -533,6 +538,7 @@ Elements.SectionBlock = class {
     var link = Components.DOMPresentationUtils.linkifyNodeReference(node);
     separatorElement.createTextChild(Common.UIString('Inherited from') + ' ');
     separatorElement.appendChild(link);
+    separatorElement.className += ' ply-hidden';
     return new Elements.SectionBlock(separatorElement);
   }
 
@@ -605,9 +611,29 @@ Elements.StylePropertiesSection = class {
     this.element.addEventListener('mouseleave', this._setSectionHovered.bind(this, false), false);
 
     if (rule) {
+      if (rule.selectors[0].text === "body") {
+        // debugger;
+      }
+
+      /**
+       * BEGIN PLY ADDITIONS
+       */
+      if (rule.style._activePropertyMap.size === 0) {
+        // this.element.classList.add('ply-empty-rule');
+      }
+
+      var shouldFilter = rule.selectors.length > 50
+        || rule.selectors.some(s => s.text === "*");
+      /**
+       * END PLY ADDITIONS
+       */
+
       // Prevent editing the user agent and user rules.
-      if (rule.isUserAgent() || rule.isInjected()) {
+      if (rule.isUserAgent() || rule.isInjected() || shouldFilter) {
         this.editable = false;
+        /* BEGIN PLY ADDITION */
+        this.element.classList.add('ply-useragent');
+        /* END PLY ADDITION */
       } else {
         // Check this is a real CSSRule, not a bogus object coming from Elements.BlankStylePropertiesSection.
         if (rule.styleSheetId) {
@@ -659,8 +685,9 @@ Elements.StylePropertiesSection = class {
           matchedStyles.cssModel(), linkifier, rule.styleSheetId, ruleLocation);
     }
 
-    if (rule.isUserAgent())
+    if (rule.isUserAgent()) {
       return createTextNode(Common.UIString('user agent stylesheet'));
+    }
     if (rule.isInjected())
       return createTextNode(Common.UIString('injected stylesheet'));
     if (rule.isViaInspector())
@@ -1995,6 +2022,20 @@ Elements.StylePropertyTreeElement = class extends UI.TreeElement {
       this.listItemElement.classList.add('disabled');
     else
       this.listItemElement.classList.remove('disabled');
+
+    /**
+     * BEGIN PLY CHANGES
+     */
+    // if (this.property.plyPruned) {
+    //   this.listItemElement.classList.add('ply-pruned');
+    // } else {
+    //   this.listItemElement.classList.remove('ply-pruned');
+    // }
+    // // debugger;
+    // this.listItemElement.classList.add('ply-pruned');
+    /**
+     * END PLY CHANGES
+     */
   }
 
   /**

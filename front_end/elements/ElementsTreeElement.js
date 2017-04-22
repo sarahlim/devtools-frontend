@@ -1183,7 +1183,18 @@ Elements.ElementsTreeElement = class extends UI.TreeElement {
     }
 
     var hasText = (forceValue || value.length > 0);
-    var attrSpanElement = parentElement.createChild('span', 'webkit-html-attribute');
+    /**
+     * BEGIN PLY ADDITIONS
+     */
+    var classString = name === 'class'
+      || name === 'id'
+      || name === 'style'
+      || name === 'placeholder'
+      ? '' : ' ply-attr';
+    var attrSpanElement = parentElement.createChild('span', 'webkit-html-attribute' + classString);
+    /**
+     * END PLY ADDITIONS
+     */
     var attrNameElement = attrSpanElement.createChild('span', 'webkit-html-attribute-name');
     attrNameElement.textContent = name;
 

@@ -89,12 +89,20 @@ Components.DOMPresentationUtils.decorateNodeLabel = function(node, parentElement
  * @param {string} nodeTitle
  */
 Components.DOMPresentationUtils.createSpansForNodeTitle = function(container, nodeTitle) {
+  debugger;
   var match = nodeTitle.match(/([^#.]+)(#[^.]+)?(\..*)?/);
   container.createChild('span', 'webkit-html-tag-name').textContent = match[1];
   if (match[2])
     container.createChild('span', 'webkit-html-attribute-value').textContent = match[2];
-  if (match[3])
-    container.createChild('span', 'webkit-html-attribute-name').textContent = match[3];
+  if (match[3]) {
+    /* BEGIN ADDITION */
+    if (match[3].indexOf('reactid') !== -1) {
+      container.createChild('span', 'webkit-html-attribute-name--hide').textContent = match[3];
+    } else {
+    /* END ADDITION */
+      container.createChild('span', 'webkit-html-attribute-name').textContent = match[3];
+    }
+  }
 };
 
 /**

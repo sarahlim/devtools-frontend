@@ -531,3 +531,30 @@
 .styles-pane:not(.is-editing-style) .styles-section.matched-styles:not(.read-only):hover .sidebar-pane-section-toolbar {
     visibility: visible;
 }
+
+/**
+ * BEGIN PLY ADDITIONS
+ */
+
+.simple-selector:not(.selector-matches) {
+    display: none;
+}
+
+.ply-hidden {
+    display: none;
+}
+
+.styles-section-subtitle {
+/*     display: none; */
+    // opacity: 0.3;
+}
+
+.styles-section {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: none;
+}
+
+.ply-useragent {
+    display: none;
+}

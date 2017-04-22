@@ -41,6 +41,9 @@
     z-index: 1;
 }
 
+/**
+ * An individual property.
+ */
 .tree-outline li {
     margin-left: 12px;
     padding-left: 22px;
@@ -48,6 +51,7 @@
     text-overflow: ellipsis;
     cursor: auto;
     display: block;
+    /*background-color: blue !important;*/
 }
 
 .tree-outline li::before {
@@ -119,16 +123,13 @@ ol.expanded {
 .overloaded:not(.has-ignorable-error),
 .inactive,
 .disabled,
-.not-parsed-ok:not(.has-ignorable-error) {
-    text-decoration: line-through;
-}
+.not-parsed-ok:not(.has-ignorable-error) {/*     text-decoration: line-through; */opacity: 0.1;}
 
 .has-ignorable-error .webkit-css-property {
     color: inherit;
 }
 
-.implicit,
-.inherited {
+.implicit {
     opacity: 0.5;
 }
 
@@ -201,3 +202,27 @@ ol.expanded {
 :host-context(.matched-styles) ol.expanded {
     margin-left: 16px;
 }
+
+/**
+ * BEGIN PLY ADDITIONS
+ */
+
+
+.inactive {
+    opacity: 0.1;
+}
+
+.tree-outline > li.disabled, {
+.tree-outline > li.overloaded {
+    display: none;
+}
+
+.tree-outline li:not(.inactive) {
+    background-color: HSLA(54, 100%, 81%, 1.00);
+}
+
+
+/**
+ * END PLY ADDITIONS
+ */
+

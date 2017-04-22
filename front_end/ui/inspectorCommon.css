@@ -368,3 +368,57 @@ label[is=dt-icon-label] {
     background: unset;
     background-color: white;
 }
+
+/**
+ * BEGIN PLY ADDITIONS
+ */
+// .styles-pane > div {
+//     display: flex;
+//     flex-flow: column nowrap;
+// }
+
+.ply-pseudo.sidebar-separator {
+    background-color: transparent;
+    border-bottom: none;
+    margin-bottom: -10px;
+    background-color: #f4f4f4;
+    opacity: 0.75;
+    z-index: 99;
+}
+
+.ply-pseudo,
+.ply-pseudo + div {
+    /* order: -1; */
+    background-color: #f4f4f4;
+    opacity: 0.75;
+}
+
+.ply-pseudo + div:last-of-type {
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* Hide the first element.style box */
+
+// .styles-pane > div > div:first-child {
+//     display: none;
+// }
+
+.styles-pane > div > div:nth-child(2)::before {
+    content: 'Main Stylesheets';
+    font-style: italic;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: HSLA(224, 16%, 40%, 1.00);
+    color: white;
+}
+
+.styles-pane > div > div:nth-child(2) {
+    padding-top: calc(1em + 20px);
+}
+
+
+

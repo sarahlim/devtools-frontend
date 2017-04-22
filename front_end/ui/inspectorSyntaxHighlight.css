@@ -126,3 +126,25 @@
     color: rgb(255, 0, 0);
     font-weight: bold;
 }
+
+/* BEGIN PLY ADDITIONS */
+
+.ply-attr {
+    display: none;
+}
+
+.webkit-html-pseudo-element::before {
+    display: none;
+    background-color: HSLA(224, 16%, 40%, 1.00);
+    color: white;
+    font-family: sans-serif;
+    padding: 5px;
+    width: 100%;
+    position: absolute;
+    top: -10%;
+    left: -150%;
+}
+
+.webkit-html-pseudo-element:hover::before {
+    display: block;
+}

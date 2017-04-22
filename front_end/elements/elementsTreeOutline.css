@@ -362,6 +362,21 @@ li.hovered:not(.always-parent) + ol.children:not(.shadow-root) {
     border-color: hsla(0,0%,80%,1);
 }
 
-li.selected:not(.always-parent) + ol.children {
-    border-color: hsla(216,68%,80%,1) !important;
+/**
+ * BEGIN PLY ADDITIONS
+ */
+
+li.selected:not(.always-parent) + ol.children,
+li.selected:not(.always-parent) + ol.children li.expanded + ol.children {
+    /*border-color: red;*/
+     border: 1px solid red;
+     background-color: HSLA(3, 71%, 67%, 0.2)
+}
+
+li:not(.selected) {
+    opacity: 0.25;
+}
+
+li.selected + ol.children.expanded li {
+    opacity: 1 !important;
 }

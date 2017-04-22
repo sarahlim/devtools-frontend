@@ -16,6 +16,7 @@ Elements.StylePropertyHighlighter = class {
   }
 
   perform() {
+    console.log('Hello');
     // Expand all shorthands.
     for (var section of this._styleSidebarPane.allSections()) {
       for (var treeElement = section.propertiesTreeOutline.firstChild(); treeElement;
